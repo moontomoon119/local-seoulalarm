@@ -1,0 +1,24 @@
+{
+  "name": "mongtang-project",
+  "version": "1.0.0",
+  "description": "서울시 자치구 공지사항 통합 검색 서비스 (로컬 버전)",
+  "scripts": {
+    "setup:windows": "setup.bat",
+    "setup:linux": "./setup.sh",
+    "start:windows": "start-windows.bat",
+    "start:linux": "./start-local.sh",
+    "pm2:start:windows": "pm2-start.bat",
+    "pm2:start:linux": "./pm2-start.sh",
+    "pm2:stop:windows": "pm2-stop.bat",
+    "pm2:stop:linux": "./pm2-stop.sh"
+  },
+  "dependencies": {
+    "firebase": "^11.8.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  },
+  "keywords": ["seoul", "district", "notices", "scraping", "local"],
+  "author": "Mongtang Team",
+  "license": "MIT"
+}
