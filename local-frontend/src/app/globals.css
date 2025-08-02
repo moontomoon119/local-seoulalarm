@@ -1,0 +1,81 @@
+/* 기본 리셋 스타일만 유지 (나머지는 GlobalStyles로 이동) */
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* 기본 애니메이션 */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* 버튼 스타일 */
+.btn {
+  padding-left: 1rem;    /* px-4 대신 */
+  padding-right: 1rem;   /* px-4 대신 */
+  padding-top: 0.5rem;   /* py-2 대신 */
+  padding-bottom: 0.5rem; /* py-2 대신 */
+  border-radius: 0.5rem; /* rounded-lg 대신 */
+  font-weight: 500;      /* font-medium 대신 */
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+/* 카드 스타일 */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+/* 입력 필드 스타일 */
+input, 
+select {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+/* 배경과 텍스트 색상 유틸리티 클래스 */
+.bg-background {
+  background-color: var(--background);
+}
+
+.bg-card {
+  background-color: var(--card-bg);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.border-color {
+  border-color: var(--border);
+}
