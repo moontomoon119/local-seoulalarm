@@ -11,10 +11,10 @@ import { GeumcheonScraper } from './scrapers/geumcheon-scraper';
 import { NowonScraper } from './scrapers/nowon-scraper';
 import { DobongScraper } from './scrapers/dobong-scraper';
 import { DongdaemunScraper } from './scrapers/dongdaemun-scraper';
-// import { DongjakScraper } from './scrapers/dongjak-scraper';
+import { DongjakScraper } from './scrapers/dongjak-scraper';
 import { MapoScraper } from './scrapers/mapo-scraper';
 import { SeodaemunScraper } from './scrapers/seodaemun-scraper';
-// import { SeochoScraper } from './scrapers/seocho-scraper';
+import { SeochoScraper } from './scrapers/seocho-scraper';
 import { SeongdongScraper } from './scrapers/seongdong-scraper';
 import { SeongbukScraper } from './scrapers/seongbuk-scraper';
 import { SongpaScraper } from './scrapers/songpa-scraper';
@@ -24,7 +24,7 @@ import { YongsanScraper } from './scrapers/yongsan-scraper';
 import { EunpyeongScraper } from './scrapers/eunpyeong-scraper';
 import { JongnoScraper } from './scrapers/jongno-scraper';
 import { JungguScraper } from './scrapers/junggu-scraper';
-// import { JungnangScraper } from './scrapers/jungnang-scraper';
+import { JungnangScraper } from './scrapers/jungnang-scraper';
 import { JeongbiScraper } from './scrapers/jeongbi-scraper';
 
 
@@ -39,9 +39,9 @@ dotenv.config();
 const DISTRICT_GROUPS = {
   CENTRAL: ['jongno', 'junggu', 'yongsan', 'seongdong', 'gangbuk'],
   NORTHEAST_A: ['dongdaemun', 'seongbuk', 'dobong', 'gangbuk'],
-  NORTHEAST_B: ['nowon', 'gwangjin', 'gangdong'], // 중랑구는 아직 미구현
+  NORTHEAST_B: ['nowon', 'gwangjin', 'gangdong', 'jungnang'],
   NORTHWEST: ['eunpyeong', 'seodaemun', 'mapo', 'yangcheon'],
-  SOUTHWEST: ['gangseo', 'guro', 'geumcheon', 'yeongdeungpo'], // 동작구는 아직 미구현
+  SOUTHWEST: ['gangseo', 'guro', 'geumcheon', 'yeongdeungpo', 'dongjak'],
   SOUTHEAST: ['gwanak', 'gangnam', 'songpa','seocho'] // 서초구는 아직 미구현
 };
 
@@ -59,10 +59,10 @@ export function getScrapers(): { [key: string]: BaseScraper } {
     'nowon': new NowonScraper(),
     'dobong': new DobongScraper(),
     'dongdaemun': new DongdaemunScraper(),
-    // 'dongjak': new DongjakScraper(),
+    'dongjak': new DongjakScraper(),
     'mapo': new MapoScraper(),
     'seodaemun': new SeodaemunScraper(),
-    // 'seocho': new SeochoScraper(),
+    'seocho': new SeochoScraper(),
     'seongdong': new SeongdongScraper(),
     'seongbuk': new SeongbukScraper(),
     'songpa': new SongpaScraper(),
@@ -72,7 +72,7 @@ export function getScrapers(): { [key: string]: BaseScraper } {
     'eunpyeong': new EunpyeongScraper(),
     'jongno': new JongnoScraper(),
     'junggu': new JungguScraper(),
-    // 'jungnang': new JungnangScraper(),
+    'jungnang': new JungnangScraper(),
     'jeongbi': new JeongbiScraper()
   };
 }

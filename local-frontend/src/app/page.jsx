@@ -17,7 +17,7 @@ export default async function Home() {
 
   try {
     // 로컬 API에서 최근 공지사항 가져오기
-    const response = await getRecentNotices(100); // 초기 로딩시 더 많은 데이터
+    const response = await getRecentNotices(1000); // 초기 로딩시 더 많은 데이터
     noticeData = response.data || [];
     
     // 자치구 목록 추출
