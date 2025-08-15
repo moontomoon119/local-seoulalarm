@@ -9,7 +9,7 @@ export class YongsanScraper extends BaseScraper {
 
   async scrapeNoticeList(): Promise<NoticeListItem[]> {
     const notices: NoticeListItem[] = [];
-    const pageIndex = 1; // 처음엔 1페이지만
+    const pageIndex = 3; // 처음엔 1페이지만
     const listUrl = `${this.baseUrl}/portal/bbs/B0000095/list.do?menuNo=200233&pageIndex=${pageIndex}`;
 
     const html = await this.fetchWithRetry(listUrl, 3, 'utf-8');

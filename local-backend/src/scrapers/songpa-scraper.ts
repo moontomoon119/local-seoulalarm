@@ -10,7 +10,7 @@ export class SongpaScraper extends BaseScraper {
 
   async scrapeNoticeList(): Promise<NoticeListItem[]> {
     const baseListUrl = `${this.baseUrl}/www/selectGosiList.do`;
-    const maxPages = 1;
+    const maxPages = 3;
     const notices: NoticeListItem[] = [];
 
     for (let page = 1; page <= maxPages; page++) {

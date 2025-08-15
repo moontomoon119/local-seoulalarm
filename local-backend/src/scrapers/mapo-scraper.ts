@@ -9,7 +9,7 @@ export class MapoScraper extends BaseScraper {
 
   async scrapeNoticeList(): Promise<NoticeListItem[]> {
     const notices: NoticeListItem[] = [];
-    const maxPages = 1;
+    const maxPages = 3;
 
     for (let page = 1; page <= maxPages; page++) {
       const listUrl = `${this.baseUrl}/site/main/nPortal/list?cp=${page}`;

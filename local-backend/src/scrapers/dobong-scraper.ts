@@ -9,7 +9,7 @@ export class DobongScraper extends BaseScraper {
 
   async scrapeNoticeList(): Promise<NoticeListItem[]> {
     const results: NoticeListItem[] = [];
-    const maxPages = 1;
+    const maxPages = 3;
 
     for (let page = 1; page <= maxPages; page++) {
       const url = `${this.baseUrl}/WDB_DEV/gosigong_go/default.asp?intPage=${page}`;

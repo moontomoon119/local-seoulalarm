@@ -9,7 +9,7 @@ export class GangbukScraper extends BaseScraper {
 
   async scrapeNoticeList(): Promise<NoticeListItem[]> {
     const notices: NoticeListItem[] = [];
-    const maxPages = 2;
+    const maxPages = 3;
 
     for (let page = 1; page <= maxPages; page++) {
       const url = `${this.baseUrl}/portal/bbs/B0000245/list.do?menuNo=200082&pageIndex=${page}`;

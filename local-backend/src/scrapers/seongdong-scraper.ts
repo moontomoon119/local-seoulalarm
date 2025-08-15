@@ -10,7 +10,7 @@ export class SeongdongScraper extends BaseScraper {
 
   async scrapeNoticeList(): Promise<NoticeListItem[]> {
     const notices: NoticeListItem[] = [];
-    const page = 1;
+    const page = 3;
 
     const listUrl = `${this.baseUrl}/main/selectBbsNttList.do?bbsNo=184&key=1473&pageIndex=${page}`;
     const html = await this.fetchWithRetry(listUrl);

@@ -9,7 +9,7 @@ export class EunpyeongScraper extends BaseScraper {
 
   async scrapeNoticeList(): Promise<NoticeListItem[]> {
     const notices: NoticeListItem[] = [];
-    const pageCount = 1;
+    const pageCount = 3;
 
     for (let page = 1; page <= pageCount; page++) {
       const listUrl = `${this.baseUrl}/www/selectEminwonList.do?key=754&notAncmtSeCode=01&pageUnit=10&pageIndex=${page}`;

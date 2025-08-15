@@ -9,7 +9,7 @@ export class GeumcheonScraper extends BaseScraper {
 
   async scrapeNoticeList(): Promise<NoticeListItem[]> {
     const notices: NoticeListItem[] = [];
-    const maxPages = 1;
+    const maxPages = 3;
 
     for (let page = 1; page <= maxPages; page++) {
       const url = `${this.baseUrl}/portal/tblSeolGosiDetailList.do?key=294&rep=1&pageIndex=${page}`;

@@ -9,7 +9,7 @@ export class GuroScraper extends BaseScraper {
 
   async scrapeNoticeList(): Promise<NoticeListItem[]> {
     const notices: NoticeListItem[] = [];
-    const maxPages = 1;
+    const maxPages = 3;
 
     for (let page = 1; page <= maxPages; page++) {
       const url = `${this.baseUrl}/www/selectBbsNttList.do?bbsNo=663&key=1791&pageIndex=${page}`;

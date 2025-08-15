@@ -10,7 +10,7 @@ export class JungguScraper extends BaseScraper {
 
   async scrapeNoticeList(): Promise<NoticeListItem[]> {
     const notices: NoticeListItem[] = [];
-    const maxPages = 1;
+    const maxPages = 3;
 
     for (let page = 1; page <= maxPages; page++) {
       const url = `${this.baseUrl}/content.do?cmsid=14232&page=${page}`;

@@ -18,10 +18,26 @@ export class SeongbukScraper extends BaseScraper {
 
   async scrapeNoticeList(): Promise<NoticeListItem[]> {
     const notices: NoticeListItem[] = [];
-    const url = `${this.baseUrl}/www/selectEminwonList.do?key=6977`;
+    
+    // 1-3페이지까지 스크래핑
+    for (let page = 1; page <= 3; page++) {
+      const pageNotices = await this.scrapeNoticeListByPage(page);
+      notices.push(...pageNotices);
+      
+      // 페이지 간 지연
+      await this.sleep(500);
+    }
+
+    console.log(`📋 성북구에서 총 ${notices.length}건의 공지사항을 찾았습니다.`);
+    return notices;
+  }
+
+  private async scrapeNoticeListByPage(pageIndex: number): Promise<NoticeListItem[]> {
+    const notices: NoticeListItem[] = [];
+    const url = `${this.baseUrl}/www/selectEminwonList.do?key=6977&notAncmtSeCode=01&depNm=&pageUnit=10&searchCnd=all&searchCnd2=&searchKrwd=&bgnde=&endde=&pageIndex=${pageIndex}`;
 
     try {
-      console.log(`🔍 성북구 공지사항 목록 요청: ${url}`);
+      console.log(`🔍 성북구 공지사항 ${pageIndex}페이지 요청: ${url}`);
       
       const response = await axios.get(url, {
         httpsAgent: this.httpsAgent,
@@ -55,10 +71,10 @@ export class SeongbukScraper extends BaseScraper {
         }
       });
 
-      console.log(`📋 성북구에서 ${notices.length}건의 공지사항을 찾았습니다.`);
+      console.log(`📋 성북구 ${pageIndex}페이지에서 ${notices.length}건의 공지사항을 찾았습니다.`);
       return notices;
     } catch (error) {
-      console.error('🚨 성북구 공지사항 목록 스크래핑 실패:', error);
+      console.error(`🚨 성북구 ${pageIndex}페이지 공지사항 목록 스크래핑 실패:`, error);
       throw error;
     }
   }
@@ -102,6 +118,23 @@ export class SeongbukScraper extends BaseScraper {
 
   // 첫 페이지만 스크래핑하는 메서드 오버라이드
   async scrapeFirstPageList(): Promise<NoticeListItem[]> {
-    return this.scrapeNoticeList();
+    return this.scrapeNoticeListByPage(1);
+  }
+
+  // 추가 페이지(2-3페이지) 스크래핑하는 메서드 오버라이드
+  async scrapeAdditionalPagesList(): Promise<NoticeListItem[]> {
+    const notices: NoticeListItem[] = [];
+    
+    // 2-3페이지 스크래핑
+    for (let page = 2; page <= 3; page++) {
+      const pageNotices = await this.scrapeNoticeListByPage(page);
+      notices.push(...pageNotices);
+      
+      // 페이지 간 지연
+      await this.sleep(500);
+    }
+
+    console.log(`📋 성북구 추가 페이지에서 총 ${notices.length}건의 공지사항을 찾았습니다.`);
+    return notices;
   }
 }

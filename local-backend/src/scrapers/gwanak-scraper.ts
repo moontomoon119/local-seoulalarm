@@ -10,7 +10,7 @@ export class GwanakScraper extends BaseScraper {
 
   async scrapeNoticeList(): Promise<NoticeListItem[]> {
     const notices: NoticeListItem[] = [];
-    const maxPages = 1;
+    const maxPages = 3;
 
     for (let page = 1; page <= maxPages; page++) {
       const listUrl = `${this.baseUrl}/site/gwanak/ex/bbsNew/List.do?typeCode=1`;

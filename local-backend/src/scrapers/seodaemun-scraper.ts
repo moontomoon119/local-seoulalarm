@@ -12,7 +12,7 @@ export class SeodaemunScraper extends BaseScraper {
 
 async scrapeNoticeList(): Promise<NoticeListItem[]> {
   const notices: NoticeListItem[] = [];
-  const maxPages = 1;
+  const maxPages = 3;
 
   for (let page = 1; page <= maxPages; page++) {
     const formData = new URLSearchParams();

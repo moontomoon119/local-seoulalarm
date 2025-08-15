@@ -10,7 +10,7 @@ export class DongdaemunScraper extends BaseScraper {
 
   async scrapeNoticeList(): Promise<NoticeListItem[]> {
     const notices: NoticeListItem[] = [];
-    const maxPages = 1;
+    const maxPages = 3;
 
     for (let page = 1; page <= maxPages; page++) {
       const url = `${this.baseUrl}/www/selectEminwonWebList.do?key=3291&pageIndex=${page}`;

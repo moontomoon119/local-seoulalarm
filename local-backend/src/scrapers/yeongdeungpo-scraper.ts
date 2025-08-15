@@ -10,7 +10,7 @@ export class YeongdeungpoScraper extends BaseScraper {
 
   async scrapeNoticeList(): Promise<NoticeListItem[]> {
     const notices: NoticeListItem[] = [];
-    const pageCount = 1; // 원하는 페이지 수 조절
+    const pageCount = 3; // 원하는 페이지 수 조절
 
     for (let page = 1; page <= pageCount; page++) {
       const url = `${this.baseUrl}/www/selectEminwonList.do?menuFlag=01&key=2851&pageIndex=${page}`;
