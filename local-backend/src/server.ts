@@ -260,6 +260,68 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
+// 병렬 전체 스크래핑 함수 (서버 시작 시 실행)
+async function initialParallelScraping() {
+  console.log('🚀 초기 전체 스크래핑 시작 (병렬 실행)');
+  const startTime = Date.now();
+  
+  // 모든 지역의 스크래핑을 병렬로 실행
+  const allDistricts = Object.keys(scrapers);
+  const scrapePromises = allDistricts.map(async (district) => {
+    if (!scrapers[district]) {
+      return { district, success: false, error: '스크래퍼가 없습니다' };
+    }
+
+    try {
+      console.log(`📍 ${district} 스크래핑 시작...`);
+      
+      const scraper = scrapers[district];
+      const scraperService = new ScraperService(scraper, repository);
+      
+      // 자동 스크래핑 실행 (기존 데이터 있으면 증분, 없으면 전체)
+      const result = await scraperService.scrapeAuto();
+      
+      console.log(`✅ ${district} 완료: 신규 ${result.saved}개, 중복 ${result.duplicates}개, 전체 ${result.total}개`);
+      
+      return {
+        district,
+        success: true,
+        ...result
+      };
+    } catch (error) {
+      console.error(`❌ ${district} 스크래핑 실패:`, error instanceof Error ? error.message : '알 수 없는 오류');
+      return {
+        district,
+        success: false,
+        error: error instanceof Error ? error.message : '알 수 없는 오류'
+      };
+    }
+  });
+
+  // 모든 스크래핑 결과를 기다림
+  const results = await Promise.all(scrapePromises);
+  
+  // 결과 통계
+  const successful = results.filter(r => r.success);
+  const failed = results.filter(r => !r.success);
+  const totalSaved = successful.reduce((sum, r) => sum + ((r as any).saved || 0), 0);
+  const totalDuplicates = successful.reduce((sum, r) => sum + ((r as any).duplicates || 0), 0);
+  
+  const duration = Date.now() - startTime;
+  
+  console.log('🎉 초기 전체 스크래핑 완료');
+  console.log(`⏱️  소요 시간: ${(duration / 1000).toFixed(1)}초`);
+  console.log(`✅ 성공: ${successful.length}개 지역`);
+  console.log(`❌ 실패: ${failed.length}개 지역`);
+  console.log(`💾 신규 저장: ${totalSaved}개`);
+  console.log(`🔄 중복: ${totalDuplicates}개`);
+  
+  if (failed.length > 0) {
+    console.log('❌ 실패한 지역들:');
+    failed.forEach(f => console.log(`   - ${f.district}: ${f.error}`));
+  }
+}
+
 // 스케줄링된 크롤링 함수들
 async function scrapeDistrictGroup(groupName: string, districts: string[]) {
   console.log(`🚀 스케줄링 스크래핑 시작: ${groupName}`);
@@ -339,7 +401,7 @@ cron.schedule('0 * * * *', () => {
 });
 
 // 서버 시작
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`🚀 로컬 백엔드 서버가 http://localhost:${PORT}에서 실행 중입니다.`);
   console.log(`📊 API 엔드포인트:`);
   console.log(`   GET  /api/notices/recent - 최근 공지사항`);
@@ -350,6 +412,14 @@ app.listen(PORT, () => {
   console.log(`   POST /api/scrape/all - 전체 수동 스크래핑`);
   console.log(`   GET  /api/health - 서버 상태`);
   console.log(`⏰ 자동 스크래핑이 매시간 스케줄링되어 실행됩니다.`);
+  
+  // 서버 시작 후 초기 전체 스크래핑 실행 (병렬)
+  console.log('\n🎯 서버 시작 후 초기 스크래핑을 시작합니다...');
+  try {
+    await initialParallelScraping();
+  } catch (error) {
+    console.error('💥 초기 스크래핑 실행 중 오류 발생:', error instanceof Error ? error.message : '알 수 없는 오류');
+  }
 });
 
 // Graceful shutdown

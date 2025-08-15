@@ -2,7 +2,6 @@ import * as cheerio from 'cheerio';
 import puppeteer from 'puppeteer';
 import { BaseScraper } from './base-scraper';
 import { NoticeListItem } from '../types/notice';
-import * as fs from 'fs';
 
 export class DongjakScraper extends BaseScraper {
   constructor() {
@@ -92,9 +91,7 @@ export class DongjakScraper extends BaseScraper {
           }
         }
         
-        // 디버깅을 위해 페이지 스크린샷 저장
-        await pageObj.screenshot({ path: `dongjak-page-${page}-screenshot.png` });
-        console.log(`📸 페이지 ${page} 스크린샷 저장됨`);
+
         
         const html = await pageObj.content();
         console.log('📝 HTML 가져오기 성공');
@@ -158,9 +155,7 @@ export class DongjakScraper extends BaseScraper {
         if (noticeRows.length === 0) {
           console.log('⚠️ 모든 방법으로 공지사항을 찾을 수 없습니다. 상세 디버깅을 실행합니다.');
           
-          // 디버깅용 HTML 저장
-          fs.writeFileSync(`dongjak-debug-page-${page}.html`, html);
-          console.log(`🔍 디버깅용 HTML 저장됨: dongjak-debug-page-${page}.html`);
+
           
           // 페이지에 "고시공고" 텍스트가 있는지 확인
           const hasNoticeText = html.includes('고시공고') || html.includes('공고') || html.includes('제목');
@@ -406,15 +401,11 @@ export class DongjakScraper extends BaseScraper {
         await new Promise(resolve => setTimeout(resolve, 5000));
       }
       
-      // 디버깅용 스크린샷
-      await page.screenshot({ path: `dongjak-detail-${noticeId}-screenshot.png` });
-      console.log(`📸 상세 페이지 스크린샷 저장됨`);
+
       
       const html = await page.content();
       
-      // 디버깅용 HTML 저장
-      fs.writeFileSync(`dongjak-detail-${noticeId}.html`, html);
-      console.log(`🔍 상세 페이지 HTML 저장됨`);
+
       
       const $ = cheerio.load(html);
       

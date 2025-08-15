@@ -42,7 +42,7 @@ const DISTRICT_GROUPS = {
   NORTHEAST_B: ['nowon', 'gwangjin', 'gangdong', 'jungnang'],
   NORTHWEST: ['eunpyeong', 'seodaemun', 'mapo', 'yangcheon'],
   SOUTHWEST: ['gangseo', 'guro', 'geumcheon', 'yeongdeungpo', 'dongjak'],
-  SOUTHEAST: ['gwanak', 'gangnam', 'songpa','seocho'] // 서초구는 아직 미구현
+  SOUTHEAST: ['gwanak', 'gangnam', 'songpa','seocho']
 };
 
 // 모든 자치구 스크래퍼 목록
